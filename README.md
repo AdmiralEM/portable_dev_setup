@@ -1,87 +1,87 @@
 # Portable Development Setup
 
-💻 A clean, container-based approach to coding across stacks — consistent, isolated, and easy to replicate.
+💻 A clean, container-based approach to fullstack development — isolated, reproducible, and ready to go anywhere.
 
 ---
 
 ## 🌱 Why Portable Development?
 
-Installing tools globally can get messy fast — especially when you're learning, working across stacks, or switching machines. This project offers a better way:
+Installing dev tools globally can get messy fast — especially when you're learning, working across stacks, or switching machines. This project offers a better way:
 
-- ✅ Keep your system clean — no Node, Python, or databases on your OS
-- 🔁 Seamlessly switch between languages and stacks
-- 🧳 Clone, code, commit — anywhere, on any OS
-- ⚙️ Leverage Docker + VS Code Dev Containers for consistent environments
+- ✅ Keep your system clean — no global installs of Node, Python, databases, etc.
+- 🔁 Seamlessly switch between stacks and languages
+- 🧳 Work from any machine or OS with zero setup
+- ⚙️ Powered by Docker + VS Code Dev Containers
 
-Whether you're a beginner or a seasoned dev, this approach saves time, reduces bugs, and just works.
+Whether you're just starting out or working across multiple stacks, this workflow saves time, reduces bugs, and keeps things organized.
 
 ---
 
-## 🧰 What's Included
+## 🧰 What’s Included
 
-This repo is your foundation for isolated development. You'll find:
+This repo serves as a base for portable development environments. You'll find:
 
-- 🔧 [Base Setup](./base-setup.md): Core tools, environment philosophy, and host setup
-- 📦 [JavaScript](./stacks/javascript.md): Node, npm/yarn, lightweight JS dev
-- 🧱 [MERN Stack](./stacks/mern-stack.md): Mongo, Express, React, Node — all containerized
-- 🐍 [Python](./stacks/python.md): Python, pipenv/poetry, optional Jupyter
-- 📁 [Container Templates](./templates/): Ready-to-use `devcontainer.json`, `Dockerfile`, and more
+- 🔧 [Base Setup](./base-setup.md): Core tooling, setup steps, and philosophy
+- 📦 [JavaScript Guide](./stacks/javascript.md)
+- 🧱 [MERN Stack Guide](./stacks/mern-stack.md)
+- 🐍 [Python Guide](./stacks/python.md)
+- 📁 [Container Templates](./templates/): Dev container configs, Dockerfiles, and examples
 
-Each guide includes:
-- Dev container setup (single or multi-container)
-- Recommended folder structure
-- Dev workflow (install, run, debug, test)
+Each stack includes:
+- A dev container config (Dockerfile or Compose)
+- Folder structure suggestions
+- Workflow steps (install, run, debug, test)
 
 ---
 
 ## ⚡ Quickstart
 
-> Already have Docker + VS Code + the Dev Containers extension?
+> Already have Docker + VS Code + the Dev Containers extension installed?
 
-1. Clone this repo or an example project
-2. Open it in VS Code
-3. Select **“Reopen in Container”**
-4. Start coding — no local setup required
+1. Clone this repo (or any configured project)
+2. Open the folder in VS Code
+3. Choose **“Reopen in Container”**
+4. Start coding — no host setup needed
 
 ---
 
 ## 💡 Core Principles
 
-- **Isolated**: Each project runs in its own clean, self-contained environment
+- **Isolated**: Each project runs in its own environment
 - **Portable**: Works the same across Windows, macOS, and Linux
-- **Versioned**: Everything lives in Git — no guessing, no drift
-- **Minimal**: Nothing extra on your system; no global installs
-- **Extensible**: Add new stacks or services without changing your workflow
+- **Versioned**: Everything is defined in code and tracked in Git
+- **Minimal**: Nothing installed globally on your host OS
+- **Extensible**: Add stacks or services without breaking your flow
 
 ---
 
 ## 👥 Who This Is For
 
-- Learners who want a safe, consistent setup
-- Devs switching between JS, Python, or other stacks
-- Freelancers or side-project junkies juggling multiple projects
-- Anyone who wants a clean development workflow they can take anywhere
+- New coders who want a safe, consistent environment
+- Developers working across multiple stacks
+- Freelancers or side-project devs managing isolated projects
+- Anyone who values a clean, reproducible dev workflow
 
 ---
 
 ## 🔍 Common Questions
 
-**Why containers over virtual machines?**  
-Containers are faster, lighter, and integrate directly into VS Code. You get the isolation of a VM with the performance of native development.
+**Why containers instead of virtual machines?**  
+Containers are faster, lighter, and integrate directly into VS Code. You get isolation without the bloat.
 
-**Is this compatible with GitHub Codespaces?**  
-Yes. The same `.devcontainer` setup works out of the box with Codespaces.
+**Can I use this with GitHub Codespaces?**  
+Yes — everything here is fully compatible with Codespaces.
 
-**Does this work on other OSes?**  
-Yep. It’s fully cross-platform — just install Docker + VS Code and you’re good to go.
+**Will this work on Mac or Linux?**  
+Absolutely. As long as you have Docker and VS Code installed, you're good to go.
 
 ---
 
 ## 🧪 In Progress / Coming Soon
 
-- More stack guides (Rust, Go, multi-language combos)
-- Debugging tips and container health checks
-- GitHub repo templates for rapid project bootstrapping
+- Additional stack guides (Rust, Go, Python + JS combos)
+- Debugging workflows and container health tips
+- GitHub template repos for instant bootstrapping
 
 ---
 
@@ -89,7 +89,4 @@ Yep. It’s fully cross-platform — just install Docker + VS Code and you’re 
 
 This project is licensed under the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html).
 
-You're free to use, share, and modify this work — just keep it open and respect the same license in derivatives.
-
----
-
+You're free to use, modify, and share — just keep it open and preserve the same license in derivatives.
