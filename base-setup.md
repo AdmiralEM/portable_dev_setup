@@ -1,97 +1,104 @@
 # 🧱 Base Setup: Your Portable Dev Environment Foundation
 
-This guide outlines the **base setup** required for building containerized development environments. Whether you're working on a JavaScript project, a Python API, or something else entirely, these steps will get your system ready — clean, consistent, and portable.
+This guide walks you through preparing your system to use fully isolated, containerized dev environments with Visual Studio Code and Docker — no clutter on your host OS.
 
 ---
 
-## 🛠 Required Tools (Host System)
+## 🛠 Required Tools (Install on Your Host OS)
 
-Install the following tools on **any supported OS (Windows/macOS/Linux):**
+Install the following:
 
-### 1. [Docker Desktop](https://www.docker.com/products/docker-desktop)
-- Required for running containerized environments.
-- Enable the **WSL2 backend** if you're on Windows.
+### 1. [Visual Studio Code](https://code.visualstudio.com/)
+Install and launch VS Code.
 
-### 2. [Visual Studio Code](https://code.visualstudio.com/)
-- The primary editor for this setup.
-- Install these extensions:
-  - `Dev Containers` (official)
-  - `Docker` (optional, for container management)
+### 2. [Docker Desktop](https://www.docker.com/products/docker-desktop)
+Used to run containers that hold your dev environment.
+
+- On Windows, enable **WSL2** or **Hyper-V** in Docker settings.
+- Ensure it’s running before using containers in VS Code.
 
 ### 3. [Git](https://git-scm.com/) or [GitHub Desktop](https://desktop.github.com/)
-- For cloning repositories and managing code versioning.
-- Make sure Git is in your system’s PATH.
+Used to clone and manage repositories.
 
 ---
 
-## 🗂 Recommended Folder Setup
+## 🧩 Recommended (for Windows Users)
 
-You can keep all of your portable dev projects in one place for easy management:
+### ✅ WSL2 (Windows Subsystem for Linux)
+Recommended for better Docker performance and cross-platform compatibility.
 
-```
-/YourProjects
-├── javascript-project/
-├── python-api/
-├── mern-todo-app/
-└── Portable-Development-Setup/   ← this repo
+```bash
+wsl --install
 ```
 
-If you're on Windows 11, consider using a **Dev Drive (ReFS)** for faster performance with lots of small files (like `node_modules`).
+Then restart your computer and select a Linux distro (e.g., Ubuntu).
+
+### ✅ Dev Drive (Windows 11 Only)
+A special performance-optimized volume for developer workloads (uses the ReFS file system).
+
+- Create via: **Settings > Storage > Advanced Storage Settings > Disks & Volumes > Create Dev Drive**
+- Mount it as `D:\` for a clean, dedicated workspace
+
+**Example Setup:**
+- Your GitHub repos clone to `D:\project-name`
+- Keeps all your dev work away from `C:\`
 
 ---
 
-## 📦 Creating a New Project with Dev Containers
+## 🧰 Core VS Code Extensions (Host System)
 
-### Step 1: Create a folder for your project
+Install these from the Extensions panel (`Ctrl+Shift+X` in VS Code). These are used across all stacks:
+
+| Extension | ID | Purpose |
+|-----------|----|---------|
+| ✅ Dev Containers | `ms-vscode-remote.remote-containers` | Enables working inside containers |
+| ✅ Docker | `ms-azuretools.vscode-docker` | Manage containers and images |
+| ✅ GitHub | `github.vscode-pull-request-github` | View PRs and issues inside VS Code |
+| ✨ Copilot (optional) | `github.copilot` | AI suggestions while coding |
+| ✍️ Spell Checker | `streetsidesoftware.code-spell-checker` | Spellcheck for code, comments, markdown |
+| 📘 Markdown Tools | `yzhang.markdown-all-in-one` | Live preview, TOC, formatting help |
+
+---
+
+## 📦 Creating a New Project (GUI-First)
+
+> You don’t need the terminal to get started — VS Code makes this easy.
+
+### Step 1: Open VS Code → File → New Folder
+- Create a new folder and open it.
+- You may be asked: **“Do you trust the authors of this folder?”** Click **Yes**.
+
+### Step 2: Add Dev Container Config
+- Open the Command Palette (`F1` or `Ctrl+Shift+P`)
+- Type: `Dev Containers: Add Dev Container Configuration Files`
+- Choose a stack (e.g., Node.js, Python)
+- VS Code creates a `.devcontainer/` folder with configuration files
+
+### Step 3: Reopen in Container
+- After setup, VS Code will prompt you: **“Reopen in Container?”**
+- Click **Yes**
+- It will build and start your environment inside a Docker container
+
+---
+
+## 💻 (Optional) Advanced CLI Workflow
 
 ```bash
 mkdir my-project && cd my-project
-git init  # optional
+git init
+mkdir .devcontainer
+touch .devcontainer/devcontainer.json
 ```
 
-### Step 2: Create the `.devcontainer/` folder
-
-Inside your project folder:
-
-```
-my-project/
-└── .devcontainer/
-    ├── devcontainer.json
-    └── Dockerfile (or docker-compose.yml)
-```
-
-### Step 3: Add a `devcontainer.json`
-
-This tells VS Code how to build and launch your container environment.
-
-Example:
-
-```json
-{
-  "name": "Node Dev",
-  "build": {
-    "dockerfile": "Dockerfile"
-  },
-  "settings": {},
-  "extensions": [
-    "dbaeumer.vscode-eslint",
-    "esbenp.prettier-vscode"
-  ],
-  "forwardPorts": [3000],
-  "postCreateCommand": "npm install"
-}
-```
-
-You can also start with a VS Code template:
-> `F1` → **Dev Containers: Add Dev Container Configuration Files...**
+Then manually add a Dockerfile or devcontainer config as needed.
 
 ---
 
-## 🐳 Using Docker Compose (Optional)
+## ⚙️ Docker Compose for Multi-Service Projects
 
-If your project has multiple services (like a database), you can use `docker-compose.yml` and point to it in `devcontainer.json`.
+Use `docker-compose.yml` if your project has a backend, frontend, database, etc.
 
-Example:
+In `.devcontainer/devcontainer.json`:
 
 ```json
 {
@@ -106,40 +113,31 @@ Example:
 
 ---
 
-## ⚡ Launching the Dev Container
-
-1. Open your project in VS Code
-2. You'll be prompted to **"Reopen in Container"** — click it
-3. VS Code will build and start the container
-4. From here on out, everything runs *inside* the container — not on your OS
-
----
-
 ## ✅ Tips & Best Practices
 
-- Don’t install languages (Node, Python, etc.) globally on your OS
+- **Don't install Node, Python, etc. globally** — containers handle this
 - Put all dependencies inside the container (`npm install`, `pip install`, etc.)
-- Keep your `devcontainer.json` and `Dockerfile` under version control
-- Use Docker volumes for persistence (e.g., MongoDB data)
+- Keep your `.devcontainer/` and `Dockerfile` under version control
+- Use Docker volumes if you need persistent storage (e.g., databases)
 
 ---
 
 ## 🧪 Verify Your Setup
 
-Once you’ve opened your first dev container:
+Once inside your dev container:
 
-- Run `node -v` or `python --version` to confirm the environment
-- Create a sample server or app and run it inside the container
-- Use the forwarded port (like `localhost:3000`) in your browser
+- Run `node -v` or `python --version`
+- Start your app inside the container (e.g., `npm start`)
+- Visit the forwarded port in your browser (e.g., `localhost:3000`)
 
 ---
 
 ## 🧭 What’s Next
 
-Now that your base system is ready, head to a stack-specific guide to configure a full dev environment:
+Pick your stack and get building:
 
 - [JavaScript Setup](./stacks/javascript.md)
 - [MERN Stack Setup](./stacks/mern-stack.md)
 - [Python Setup](./stacks/python.md)
 
-You’re now working in a fully portable development setup 🚀
+Welcome to your clean, portable dev workflow 🚀
