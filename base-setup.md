@@ -1,143 +1,78 @@
-# 🧱 Base Setup: Your Portable Dev Environment Foundation
+# 🧱 Base Setup: Portable Development System Preparation
 
-This guide walks you through preparing your system to use fully isolated, containerized dev environments with Visual Studio Code and Docker — no clutter on your host OS.
+This document prepares your system to run containerized development environments. It focuses on host configuration — tools, settings, and practices to keep your system clean, consistent, and ready for any stack.
 
 ---
 
-## 🛠 Required Tools (Install on Your Host OS)
+## 🛠 Required Tools (Install Manually)
 
 Install the following:
 
-### 1. [Visual Studio Code](https://code.visualstudio.com/)
-Install and launch VS Code.
+- [Visual Studio Code](https://code.visualstudio.com/)
+- [Docker Desktop](https://www.docker.com/products/docker-desktop)
+- [Git](https://git-scm.com/) or [GitHub Desktop](https://desktop.github.com/)
 
-### 2. [Docker Desktop](https://www.docker.com/products/docker-desktop)
-Used to run containers that hold your dev environment.
-
-- On Windows, enable **WSL2** or **Hyper-V** in Docker settings.
-- Ensure it’s running before using containers in VS Code.
-
-### 3. [Git](https://git-scm.com/) or [GitHub Desktop](https://desktop.github.com/)
-Used to clone and manage repositories.
+> Installation steps are not covered here. If you're uncomfortable installing these, a container-based workflow may not be the best starting point.
 
 ---
 
-## 🧩 Recommended (for Windows Users)
+## ⚙️ Recommended Configuration (Especially for Windows Users)
 
 ### ✅ WSL2 (Windows Subsystem for Linux)
-Recommended for better Docker performance and cross-platform compatibility.
+- Improves performance and compatibility when working with containers on Windows.
+- After installing Docker Desktop, make sure the **WSL2 backend is enabled**.
+- From Docker Desktop:  
+  `Settings → General → Use the WSL 2 based engine`
 
-```bash
-wsl --install
-```
-
-Then restart your computer and select a Linux distro (e.g., Ubuntu).
-
-### ✅ Dev Drive (Windows 11 Only)
-A special performance-optimized volume for developer workloads (uses the ReFS file system).
-
-- Create via: **Settings > Storage > Advanced Storage Settings > Disks & Volumes > Create Dev Drive**
-- Mount it as `D:\` for a clean, dedicated workspace
-
-**Example Setup:**
-- Your GitHub repos clone to `D:\project-name`
-- Keeps all your dev work away from `C:\`
+> You can install WSL with: `wsl --install`  
+> Choose a distro like Ubuntu when prompted.
 
 ---
 
-## 🧰 Core VS Code Extensions (Host System)
+### ✅ Dev Drive (Windows 11)
+- Use a [Dev Drive](https://learn.microsoft.com/en-us/windows/dev-drive/) to isolate your projects on a performance-optimized volume.
+- Supports the ReFS file system and is ideal for handling things like `node_modules`.
 
-Install these from the Extensions panel (`Ctrl+Shift+X` in VS Code). These are used across all stacks:
+**Suggested Setup:**
+- Mount it as `D:\` — short, fast, and clearly for development.
+- Set your GitHub Desktop repo root to `D:\` so projects are cloned to `D:\project-name`.
+
+---
+
+## 🧰 Core VS Code Extensions (Host System Only)
+
+Install these in **your main VS Code environment**:
 
 | Extension | ID | Purpose |
 |-----------|----|---------|
-| ✅ Dev Containers | `ms-vscode-remote.remote-containers` | Enables working inside containers |
-| ✅ Docker | `ms-azuretools.vscode-docker` | Manage containers and images |
-| ✅ GitHub | `github.vscode-pull-request-github` | View PRs and issues inside VS Code |
-| ✨ Copilot (optional) | `github.copilot` | AI suggestions while coding |
-| ✍️ Spell Checker | `streetsidesoftware.code-spell-checker` | Spellcheck for code, comments, markdown |
-| 📘 Markdown Tools | `yzhang.markdown-all-in-one` | Live preview, TOC, formatting help |
+| ✅ Dev Containers | `ms-vscode-remote.remote-containers` | Enables `.devcontainer` workflows |
+| ✅ Docker | `ms-azuretools.vscode-docker` | Manage containers and volumes |
+| ✅ GitHub | `github.vscode-pull-request-github` | PR and issue support |
+| ✨ Copilot (optional) | `github.copilot` | AI assistance |
+| ✍️ Spell Checker | `streetsidesoftware.code-spell-checker` | Clean up typos in code/docs |
+| 📘 Markdown Tools | `yzhang.markdown-all-in-one` | Better writing/editing for markdown files |
 
 ---
 
-## 📦 Creating a New Project (GUI-First)
+## 🧪 (Optional) Test Your Setup
 
-> You don’t need the terminal to get started — VS Code makes this easy.
+You can verify your system setup with a simple Git + Markdown test:
 
-### Step 1: Open VS Code → File → New Folder
-- Create a new folder and open it.
-- You may be asked: **“Do you trust the authors of this folder?”** Click **Yes**.
+1. Create a test repo on GitHub (e.g., `portable-setup-check`)
+2. Clone it to your Dev Drive (`D:\portable-setup-check`)
+3. Open it in VS Code
+4. Create and preview a `README.md` file
+5. Commit and push back to GitHub
 
-### Step 2: Add Dev Container Config
-- Open the Command Palette (`F1` or `Ctrl+Shift+P`)
-- Type: `Dev Containers: Add Dev Container Configuration Files`
-- Choose a stack (e.g., Node.js, Python)
-- VS Code creates a `.devcontainer/` folder with configuration files
-
-### Step 3: Reopen in Container
-- After setup, VS Code will prompt you: **“Reopen in Container?”**
-- Click **Yes**
-- It will build and start your environment inside a Docker container
+This confirms Git, VS Code, filesystem access, and Markdown editing are working correctly.
 
 ---
 
-## 💻 (Optional) Advanced CLI Workflow
+## 🧭 Next Step
 
-```bash
-mkdir my-project && cd my-project
-git init
-mkdir .devcontainer
-touch .devcontainer/devcontainer.json
-```
+You're now ready to begin using containerized environments.
 
-Then manually add a Dockerfile or devcontainer config as needed.
+👉 Head to [`dev-containers.md`](./dev-containers.md)  
+to learn how to create and configure isolated dev environments using `.devcontainer/`.
 
----
-
-## ⚙️ Docker Compose for Multi-Service Projects
-
-Use `docker-compose.yml` if your project has a backend, frontend, database, etc.
-
-In `.devcontainer/devcontainer.json`:
-
-```json
-{
-  "name": "Fullstack Dev",
-  "dockerComposeFile": "../docker-compose.yml",
-  "service": "backend",
-  "workspaceFolder": "/workspace",
-  "shutdownAction": "stopCompose",
-  "forwardPorts": [3000, 5000]
-}
-```
-
----
-
-## ✅ Tips & Best Practices
-
-- **Don't install Node, Python, etc. globally** — containers handle this
-- Put all dependencies inside the container (`npm install`, `pip install`, etc.)
-- Keep your `.devcontainer/` and `Dockerfile` under version control
-- Use Docker volumes if you need persistent storage (e.g., databases)
-
----
-
-## 🧪 Verify Your Setup
-
-Once inside your dev container:
-
-- Run `node -v` or `python --version`
-- Start your app inside the container (e.g., `npm start`)
-- Visit the forwarded port in your browser (e.g., `localhost:3000`)
-
----
-
-## 🧭 What’s Next
-
-Pick your stack and get building:
-
-- [JavaScript Setup](./stacks/javascript.md)
-- [MERN Stack Setup](./stacks/mern-stack.md)
-- [Python Setup](./stacks/python.md)
-
-Welcome to your clean, portable dev workflow 🚀
+This is where your portable, reproducible stack begins. 🚀
