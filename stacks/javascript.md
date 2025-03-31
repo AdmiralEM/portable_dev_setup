@@ -35,6 +35,7 @@ js-project/
 ├── .devcontainer/
 │   ├── devcontainer.json
 │   └── Dockerfile
+├── js-project.code-workspace   ← optional
 ├── src/
 ├── package.json
 └── README.md
@@ -102,6 +103,35 @@ Install via `devcontainer.json` or manually if experimenting:
 | ✅ Prettier | `esbenp.prettier-vscode` |
 | 📘 Markdown | `yzhang.markdown-all-in-one` |
 | 📁 Path Intellisense | `christian-kohler.path-intellisense` |
+
+---
+
+## 🧠 Optional: Using a VS Code Workspace
+
+You can create a `.code-workspace` file to store workspace settings, recommended extensions, and folder layout.
+
+### Example: `js-project.code-workspace`
+
+```json
+{
+  "folders": [
+    { "path": "." }
+  ],
+  "settings": {
+    "editor.formatOnSave": true
+  },
+  "extensions": {
+    "recommendations": [
+      "dbaeumer.vscode-eslint",
+      "esbenp.prettier-vscode",
+      "yzhang.markdown-all-in-one"
+    ]
+  }
+}
+```
+
+> Open via: **File → Open Workspace...**  
+> Or include in your Git repo for a preconfigured experience.
 
 ---
 
