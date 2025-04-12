@@ -1,24 +1,35 @@
-# Portable Development Setup
+# 🧰 Portable Development Setup
 
-A clean, consistent, portable development environment for multi-language projects — designed to stay out of your way and off your host system.
+> *Stop polluting your system. Start building like a pro.*
 
-## Philosophy
+A clean, consistent, and fully portable development environment — engineered for devs who want control, clarity, and zero local mess.
 
-- Keep your OS clean
-- Use containers for everything
-- Stay stack-agnostic until necessary
-- Minimal required tools on Windows
-- Work identically across machines and OS
+Built to work across any Windows 11 machine using WSL2, Docker, and VS Code — this is how you should be developing in 2025.
 
 ---
 
-## Core Workflow
+## Why This Exists
 
-| Layer | Tools Used | Purpose |
-|-------|------------|---------|
-| Host System | VS Code + WSL2 | Editor and integration |
-| Container Engine | Docker CE (in WSL2) | Container runtime |
-| Project Environment | Dev Containers | Language- or stack-specific setups |
+If you're tired of:
+
+- Installing language versions directly on Windows
+- Dealing with path weirdness, environment rot, or global tool conflicts
+- Wishing your setup worked exactly the same across machines
+
+→ This repo solves that.
+
+Containers for code.  
+Freedom for your system.
+
+---
+
+## Architecture at a Glance
+
+| Layer | Tools | Role |
+|-------|-------|------|
+| Host | VS Code + WSL2 | Lightweight Editor & Shell |
+| Runtime | Docker CE (in WSL2) | Container Engine |
+| Project | Dev Containers | Language-agnostic Workspaces |
 
 ---
 
@@ -27,16 +38,16 @@ A clean, consistent, portable development environment for multi-language project
 ### Must-Have
 
 - Windows 11 with WSL2 installed
-- Ubuntu (or another distro) via WSL2
-- Visual Studio Code with Remote & Dev Containers extensions
-- Docker CE installed inside WSL2
+- Ubuntu (or similar) in WSL2
+- Visual Studio Code with Remote & Dev Container Extensions
+- Docker CE installed inside WSL2 (No Docker Desktop!)
 
-### Optional
+### Optional Tools
 
-| Tool | Purpose |
-|------|---------|
-| GitHub Desktop | Optional Git client — VS Code Git tools are sufficient |
-| Windows Terminal | Recommended for better terminal management |
+| Tool | Why? |
+|------|------|
+| GitHub Desktop | Use it if you like it. VS Code Git works fine too. |
+| Windows Terminal | Makes working with multiple shells easier. |
 
 ---
 
@@ -60,17 +71,26 @@ Portable-Development-Setup/
 
 ---
 
-## Recommended Reading Order
+## Setup Flow
 
-1. [`base-setup.md`](./base-setup.md) → Install & configure host tools
-2. [`dev-containers.md`](./dev-containers.md) → Understand & build Dev Containers
-3. Stack Guides:
+1. [`base-setup.md`](./base-setup.md) → Prepare your system (WSL2 + Docker CE)
+2. [`dev-containers.md`](./dev-containers.md) → Understand Dev Containers
+3. Pick a stack guide:
    - [`javascript.md`](./stacks/javascript.md)
    - [`mern-stack.md`](./stacks/mern-stack.md)
    - [`python.md`](./stacks/python.md)
+
+Build once. Run anywhere.
 
 ---
 
 ## License
 
 GNU General Public License v3.0
+
+---
+
+## Final Thought
+
+> "Clean environments build clean code."  
+> – Probably a Dev smarter than me.
