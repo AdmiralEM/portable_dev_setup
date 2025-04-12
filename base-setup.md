@@ -6,42 +6,99 @@ This document prepares your system to run containerized development environments
 
 ## 🛠 Required Tools (Install Manually)
 
-Install the following:
+### Core Tools
+
+Install these on your host Windows 11 system:
 
 - [Visual Studio Code](https://code.visualstudio.com/)
-- [Docker Desktop](https://www.docker.com/products/docker-desktop)
-- [Git](https://git-scm.com/) or [GitHub Desktop](https://desktop.github.com/)
+- [WSL2 (Windows Subsystem for Linux)](https://learn.microsoft.com/en-us/windows/wsl/install)
+- [Ubuntu from Microsoft Store](https://apps.microsoft.com/store/detail/ubuntu/9PDXGNCFSCZV) (or another distro of your choice)
 
-> Installation steps are not covered here. If you're uncomfortable installing these, a container-based workflow may not be the best starting point.
+### Optional Tools
 
----
-
-## ⚙️ Recommended Configuration (Especially for Windows Users)
-
-### ✅ WSL2 (Windows Subsystem for Linux)
-- Improves performance and compatibility when working with containers on Windows.
-- After installing Docker Desktop, make sure the **WSL2 backend is enabled**.
-- From Docker Desktop:  
-  `Settings → General → Use the WSL 2 based engine`
-
-> You can install WSL with: `wsl --install`  
-> Choose a distro like Ubuntu when prompted.
+| Tool | Purpose | Notes |
+|------|---------|-------|
+| GitHub Desktop | Visual Git client | Optional; VS Code has integrated Git support |
+| Windows Terminal | Nice-to-have | Good terminal experience for WSL and PowerShell |
 
 ---
 
-### ✅ Dev Drive (Windows 11)
-- Use a [Dev Drive](https://learn.microsoft.com/en-us/windows/dev-drive/) to isolate your projects on a performance-optimized volume.
-- Supports the ReFS file system and is ideal for handling things like `node_modules`.
+## ⚙️ WSL2 Setup
 
-**Suggested Setup:**
-- Mount it as `D:\` — short, fast, and clearly for development.
-- Set your GitHub Desktop repo root to `D:\` so projects are cloned to `D:\project-name`.
+Install WSL2 by running in PowerShell (Admin):
+
+```bash
+wsl --install
+```
+
+Restart your machine and select Ubuntu when prompted.
+
+Ensure WSL2 is default:
+
+```bash
+wsl --set-default-version 2
+```
+
+---
+
+## 🐳 Installing Docker Inside WSL2 (No Docker Desktop)
+
+Enter WSL:
+
+```bash
+wsl
+```
+
+Update and install dependencies:
+
+```bash
+sudo apt update && sudo apt upgrade -y
+sudo apt install -y ca-certificates curl gnupg lsb-release
+```
+
+Add Docker GPG key:
+
+```bash
+sudo mkdir -m 0755 -p /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+```
+
+Add Docker repository:
+
+```bash
+echo   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg]   https://download.docker.com/linux/ubuntu   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+```
+
+Install Docker CE:
+
+```bash
+sudo apt update
+sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```
+
+Add your user to the Docker group:
+
+```bash
+sudo usermod -aG docker $USER
+```
+
+Restart WSL:
+
+```bash
+exit
+wsl --shutdown
+wsl
+```
+
+Test:
+
+```bash
+docker run hello-world
+```
 
 ---
 
 ## 🧰 Core VS Code Extensions (Host System Only)
-
-Install these in **your main VS Code environment**:
 
 | Extension | ID | Purpose |
 |-----------|----|---------|
@@ -50,29 +107,24 @@ Install these in **your main VS Code environment**:
 | ✅ GitHub | `github.vscode-pull-request-github` | PR and issue support |
 | ✨ Copilot (optional) | `github.copilot` | AI assistance |
 | ✍️ Spell Checker | `streetsidesoftware.code-spell-checker` | Clean up typos in code/docs |
-| 📘 Markdown Tools | `yzhang.markdown-all-in-one` | Better writing/editing for markdown files |
+| 📘 Markdown Tools | `yzhang.markdown-all-in-one` | Live preview, TOC, formatting help |
+| ✅ Markdown Linting | `davidanson.vscode-markdownlint` | Enforces clean markdown style |
+| 🎨 Better Comments | `aaron-bond.better-comments` | Color-coded comment types |
+| 🎨 Colorize | `naumovs.color-highlight` | Highlights hex/RGB values in code |
+| 🚀 Code Runner | `formulahendry.code-runner` | Quickly execute code snippets |
+| 🧭 Project Manager | `alefragnani.project-manager` | Easily switch between projects |
+| 🌍 Remote Dev (SSH + Tunnels) | `ms-vscode-remote.remote-ssh`, `remote-ssh-edit`, `remote-ssh-tunnels`, `remote-explorer` | Connect to and develop on remote machines |
+| 🪟 WSL Support | `ms-vscode-remote.remote-wsl` | Integrates with WSL2 on Windows |
+| 🧩 YAML | `redhat.vscode-yaml` | Helps edit `yaml` files like GitHub Actions, Docker Compose |
 
 ---
 
 ## 🧪 (Optional) Test Your Setup
 
-You can verify your system setup with a simple Git + Markdown test:
-
-1. Create a test repo on GitHub (e.g., `portable-setup-check`)
-2. Clone it to your Dev Drive (`D:\portable-setup-check`)
-3. Open it in VS Code
-4. Create and preview a `README.md` file
-5. Commit and push back to GitHub
-
-This confirms Git, VS Code, filesystem access, and Markdown editing are working correctly.
+Clone or create a test repo. Open in VS Code, run Markdown preview, and verify Git operations.
 
 ---
 
 ## 🧭 Next Step
 
-You're now ready to begin using containerized environments.
-
-👉 Head to [`dev-containers.md`](./dev-containers.md)  
-to learn how to create and configure isolated dev environments using `.devcontainer/`.
-
-This is where your portable, reproducible stack begins. 🚀
+👉 Proceed to [`dev-containers.md`](./dev-containers.md) to start using containerized environments.
