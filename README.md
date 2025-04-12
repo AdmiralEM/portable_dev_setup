@@ -1,92 +1,76 @@
 # Portable Development Setup
 
-💻 A clean, container-based approach to fullstack development — isolated, reproducible, and ready to go anywhere.
+A clean, consistent, portable development environment for multi-language projects — designed to stay out of your way and off your host system.
+
+## Philosophy
+
+- Keep your OS clean
+- Use containers for everything
+- Stay stack-agnostic until necessary
+- Minimal required tools on Windows
+- Work identically across machines and OS
 
 ---
 
-## 🌱 Why Portable Development?
+## Core Workflow
 
-Installing dev tools globally can get messy fast — especially when you're learning, working across stacks, or switching machines. This project offers a better way:
-
-- ✅ Keep your system clean — no global installs of Node, Python, databases, etc.
-- 🔁 Seamlessly switch between stacks and languages
-- 🧳 Work from any machine or OS with zero setup
-- ⚙️ Powered by Docker + VS Code Dev Containers
-
-Whether you're just starting out or working across multiple stacks, this workflow saves time, reduces bugs, and keeps things organized.
+| Layer | Tools Used | Purpose |
+|-------|------------|---------|
+| Host System | VS Code + WSL2 | Editor and integration |
+| Container Engine | Docker CE (in WSL2) | Container runtime |
+| Project Environment | Dev Containers | Language- or stack-specific setups |
 
 ---
 
-## 🧰 What’s Included
+## Requirements
 
-This repo serves as a base for portable development environments. You'll find:
+### Must-Have
 
-- 🔧 [Base Setup](./base-setup.md): Core tooling, setup steps, and philosophy
-- 📦 [JavaScript Guide](./stacks/javascript.md)
-- 🧱 [MERN Stack Guide](./stacks/mern-stack.md)
-- 🐍 [Python Guide](./stacks/python.md)
-- 📁 [Container Templates](./templates/): Dev container configs, Dockerfiles, and examples
+- Windows 11 with WSL2 installed
+- Ubuntu (or another distro) via WSL2
+- Visual Studio Code with Remote & Dev Containers extensions
+- Docker CE installed inside WSL2
 
-Each stack includes:
-- A dev container config (Dockerfile or Compose)
-- Folder structure suggestions
-- Workflow steps (install, run, debug, test)
+### Optional
 
----
-
-## ⚡ Quickstart
-
-> Already have Docker + VS Code + the Dev Containers extension installed?
-
-1. Clone this repo (or any configured project)
-2. Open the folder in VS Code
-3. Choose **“Reopen in Container”**
-4. Start coding — no host setup needed
+| Tool | Purpose |
+|------|---------|
+| GitHub Desktop | Optional Git client — VS Code Git tools are sufficient |
+| Windows Terminal | Recommended for better terminal management |
 
 ---
 
-## 💡 Core Principles
+## Repo Structure
 
-- **Isolated**: Each project runs in its own environment
-- **Portable**: Works the same across Windows, macOS, and Linux
-- **Versioned**: Everything is defined in code and tracked in Git
-- **Minimal**: Nothing installed globally on your host OS
-- **Extensible**: Add stacks or services without breaking your flow
-
----
-
-## 👥 Who This Is For
-
-- New coders who want a safe, consistent environment
-- Developers working across multiple stacks
-- Freelancers or side-project devs managing isolated projects
-- Anyone who values a clean, reproducible dev workflow
-
----
-
-## 🔍 Common Questions
-
-**Why containers instead of virtual machines?**  
-Containers are faster, lighter, and integrate directly into VS Code. You get isolation without the bloat.
-
-**Can I use this with GitHub Codespaces?**  
-Yes — everything here is fully compatible with Codespaces.
-
-**Will this work on Mac or Linux?**  
-Absolutely. As long as you have Docker and VS Code installed, you're good to go.
+```
+Portable-Development-Setup/
+├── README.md
+├── base-setup.md
+├── dev-containers.md
+├── stacks/
+│   ├── javascript.md
+│   ├── mern-stack.md
+│   └── python.md
+├── templates/
+│   ├── devcontainer.json
+│   ├── Dockerfile
+│   └── docker-compose.yml
+└── LICENSE
+```
 
 ---
 
-## 🧪 In Progress / Coming Soon
+## Recommended Reading Order
 
-- Additional stack guides (Rust, Go, Python + JS combos)
-- Debugging workflows and container health tips
-- GitHub template repos for instant bootstrapping
+1. [`base-setup.md`](./base-setup.md) → Install & configure host tools
+2. [`dev-containers.md`](./dev-containers.md) → Understand & build Dev Containers
+3. Stack Guides:
+   - [`javascript.md`](./stacks/javascript.md)
+   - [`mern-stack.md`](./stacks/mern-stack.md)
+   - [`python.md`](./stacks/python.md)
 
 ---
 
-## 📄 License
+## License
 
-This project is licensed under the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html).
-
-You're free to use, modify, and share — just keep it open and preserve the same license in derivatives.
+GNU General Public License v3.0
