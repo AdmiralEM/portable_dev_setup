@@ -1,0 +1,17 @@
+{
+  "name": "my-project",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspace",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "prisma.prisma",
+        "bradlc.vscode-tailwindcss",
+        "supabase.supabase-vscode",
+        "dbaeumer.vscode-eslint"
+      ]
+    }
+  },
+  "postCreateCommand": "./setup.sh"
+}
