@@ -1,0 +1,29 @@
+{
+  "name": "your-project-name",
+  "version": "0.1.0",
+  "description": "A new project based on the Next.js + Prisma + Tailwind stack.",
+  "author": "Your Name <you@example.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+  },
+  "dependencies": {
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest"
+  },
+  "devDependencies": {
+    "typescript": "latest",
+    "@types/react": "latest",
+    "@types/node": "latest",
+    "tailwindcss": "latest",
+    "postcss": "latest",
+    "autoprefixer": "latest",
+    "prisma": "latest",
+    "eslint": "latest",
+    "prettier": "latest"
+  }
+}
