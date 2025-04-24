@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -euo pipefail
 
 cd /workspace
 
@@ -11,10 +11,10 @@ if ! command -v pnpm &> /dev/null; then
   npm install -g pnpm
 fi
 
-# First-time project init: check for package.json
+# Initialize project if no package.json
 if [ ! -f package.json ]; then
-  echo "[📦] No package.json found — initializing project..."
-  pnpm init -y
+  echo "[📦] No package.json found — copying template..."
+  cp .devcontainer/package.template.json package.json
 
   echo "[📦] Adding core dependencies..."
   pnpm add next react react-dom
@@ -23,25 +23,25 @@ if [ ! -f package.json ]; then
   pnpm add -D typescript @types/react @types/node tailwindcss postcss autoprefixer prisma eslint prettier
 fi
 
-# Ensure node_modules is installed
+# Ensure dependencies are installed
 if [ ! -d node_modules ]; then
   echo "[📦] Installing node modules..."
   pnpm install
 fi
 
-# Tailwind setup (only if not already initialized)
+# Tailwind setup
 if [ ! -f tailwind.config.js ]; then
   echo "[🌬️] Initializing Tailwind CSS..."
   pnpm exec tailwindcss init -p
 fi
 
-# Prisma setup (only if not already initialized)
+# Prisma setup
 if [ ! -d prisma ]; then
   echo "[🧬] Initializing Prisma..."
   npx prisma init
 fi
 
-# Generate placeholder .env file
+# Create .env if missing
 if [ ! -f .env ]; then
   echo "[🔐] Creating .env placeholder..."
   echo "# Add environment variables here" > .env
