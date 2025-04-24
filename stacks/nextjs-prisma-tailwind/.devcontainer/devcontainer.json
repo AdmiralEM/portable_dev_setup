@@ -1,5 +1,5 @@
 {
-  "name": "your-project-name",
+  "name": "my-project",
   "dockerComposeFile": "docker-compose.yml",
   "service": "app",
   "workspaceFolder": "/workspace",
@@ -13,5 +13,5 @@
       ]
     }
   },
-  "postCreateCommand": "./setup.sh"
+  "postCreateCommand": "./.devcontainer/setup.sh"
 }
