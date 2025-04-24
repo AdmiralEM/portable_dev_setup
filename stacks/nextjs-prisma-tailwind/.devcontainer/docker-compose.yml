@@ -1,11 +1,12 @@
 version: '3.8'
+
 services:
   app:
     build:
-      context: .
+      context: .devcontainer
       dockerfile: Dockerfile
     volumes:
-      - ../:/workspace:cached
+      - ..:/workspace:cached
     ports:
       - "3000:3000"
-    command: "pnpm dev"
+    command: pnpm dev
